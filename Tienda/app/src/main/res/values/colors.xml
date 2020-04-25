@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#326289</color>
+    <color name="colorPrimaryDark">#12314B</color>
+    <color name="colorPrimarylight">#6E8599</color>
+    <color name="colorAccent">#F19A3E</color>
+    <color name="colorAccentLight">#ffcb6d</color>
+    <color name="colorAccentDark">#BA6C06</color>
+    <color name="colorPrimarytext">#ffffff</color>
+    <color name="colorSecondaryText">#000000</color>
+    <color name="colorIcons">#212121</color>
+    <color name="colorDivider">#BDBDBD</color>
+    <color name="error_color">#dc3636</color>
+    <color name="backgroundColor">#F5F5F5</color>
+    <color name="specialBackgroundColor">#A0AFBC</color>
+
+    <color name="cardbackground">#FFFFFF</color>
+
+    <color name="cellBackgrouncColor">#E2E0E0</color>
+    <color name="lightCellBlue">#45F89A63</color>
+
+    <color name="grayFontColor">#99000000</color>
+    <color name="colorAccentIconBackground">#A1FFCB6D</color>
+</resources>

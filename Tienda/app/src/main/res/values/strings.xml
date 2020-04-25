@@ -1,0 +1,44 @@
+<resources>
+    <string name="signIn">Ingresar</string>
+    <string name="signUp">Registrarse</string>
+    <string name="forgottenPassword">He olvidado mi contraseña</string>
+    <string name="loading">Cargando</string>
+    <string name="mail">Mail</string>
+    <string name="password">Contraseña</string>
+    <string name="register"><u>Registrarme</u></string>
+    <string name="error">Error!</string>
+    <string name="continuar">Continuar</string>
+    <string name="cerrarSesion">Cerrar Sesion</string>
+    <string name="description">Descripcion</string>
+    <string name="primaryColor">Colores</string>
+    <string name="clotheComposition">Tipo de tela</string>
+    <string name="clotheType">Tipo de prenda</string>
+    <string name="nombreDelGuardarropa">Nombre del guardarropa</string>
+    <string name="bienvenido">Bienvenido!</string>
+    <string name="crearGuardarropaIntro">Crea tu primer guardarropa para continuar</string>
+    <string name="uploadPrenda">Crear prenda</string>
+    <string name="notPrendasAviable">No tiene prendas disponibles en el guardarropa seleccionado</string>
+    <string name="app_name">Tienda</string>
+    <string name="title_activity_home_tienda">HomeTienda</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="GourmetMarket">The Gourmet Market</string>
+    <string name="title_activity_tienda_home">TiendaHome</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Perfil">Perfil</string>
+    <string name="Ajustes">Ajustes</string>
+
+</resources>
