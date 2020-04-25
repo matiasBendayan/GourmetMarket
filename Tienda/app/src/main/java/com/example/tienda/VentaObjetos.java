@@ -34,7 +34,6 @@ public class VentaObjetos extends AppCompatActivity {
         listView.setAdapter( adapter );
     }
     class mYAdapter extends ArrayAdapter<String> {
-        Context context;
         String rTitle[];
         int  rimg[];
         int  rprecio[];
