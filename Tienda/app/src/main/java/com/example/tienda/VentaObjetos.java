@@ -54,7 +54,7 @@ public class VentaObjetos extends AppCompatActivity {
             images.setImageResource( rimg[position]);
             title.setText( rTitle[position]);
             String precio2 = String.valueOf( rprecio[position] );
-            precio.setText( precio2);
+            precio.setText( "$ " + precio2);
             listView.setOnItemClickListener( new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {

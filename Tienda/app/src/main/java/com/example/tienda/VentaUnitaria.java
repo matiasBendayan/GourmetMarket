@@ -1,19 +1,16 @@
 package com.example.tienda;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class VentaUnitaria extends AppCompatActivity {
 
@@ -21,34 +18,38 @@ public class VentaUnitaria extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_venta_unitaria );
-        String titulo = getIntent().getStringExtra("titulo");
-        int precio = getIntent().getIntExtra("precio",0);
+        final String titulo = getIntent().getStringExtra("titulo");
+        final int precio = getIntent().getIntExtra("precio",0);
         int imagen = getIntent().getIntExtra("imagen",0);
-        VentaUnitaria.mYAdapter adapter = new VentaUnitaria.mYAdapter( this,titulo,imagen,precio);
+        TextView title = findViewById( R.id.textView1);
+        TextView txtprecio = findViewById( R.id.precio);
+        ImageView images = findViewById( R.id.imagenes );
+        images.setImageResource(imagen);
+        title.setText( titulo);
+        String precio2 = String.valueOf( precio);
+        txtprecio.setText("$ " + precio2);
+        EditText edtCantidad = findViewById(R.id.Cantidad);
+        final int cantidad = Integer.valueOf(edtCantidad.getText().toString());
+        Button btnAgregar = findViewById( R.id.agregar);
+        btnAgregar.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                agregar(titulo,precio,cantidad);
+            }
+        } );
     }
-    class mYAdapter extends ArrayAdapter<String> {
-        String rTitle;
-        int  rimg;
-        int  rprecio;
-        mYAdapter(Context c,String titulo,int imagen,int precio){
-            super(c,R.layout.fila2,R.id.textView1);
-            this.rTitle = titulo;
-            this.rimg = imagen;
-            this.rprecio = precio;
-        }
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            LayoutInflater layoutInflater = (LayoutInflater)getApplicationContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-            View fila = layoutInflater.inflate( R.layout.fila2,parent,false );
-            TextView title = fila.findViewById( R.id.textView1);
-            TextView precio = fila.findViewById( R.id.precio);
-            ImageView images = fila.findViewById( R.id.imagenes );
-            images.setImageResource(rimg);
-            title.setText( rTitle);
-            String precio2 = String.valueOf( rprecio);
-            precio.setText( precio2);
-            return fila;
+    public void agregar(String titulo,int precio,int cantidad){
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+        SQLiteDatabase BaseDeDatos = admin.getWritableDatabase();
+
+        ContentValues NuevoCarrito = new ContentValues();
+        NuevoCarrito.put("nombre", titulo);
+        NuevoCarrito.put("precio", precio);
+        NuevoCarrito.put("id", 1);
+        NuevoCarrito.put("precio", cantidad);
+        BaseDeDatos.insert("carrito", null, NuevoCarrito);
+        BaseDeDatos.close();Toast.makeText(this,"Se a agregado correctamente al carrito", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(getApplicationContext(),Catalogo.class);
+        startActivity( i );
         }
     }
-}

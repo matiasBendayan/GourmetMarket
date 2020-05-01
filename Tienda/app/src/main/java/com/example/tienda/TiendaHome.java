@@ -1,5 +1,6 @@
 package com.example.tienda;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -72,7 +73,8 @@ public class TiendaHome extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            return true;
+            Intent i = new Intent(getApplicationContext(),MyCarrito.class);
+            startActivity( i );
         }
 
         return super.onOptionsItemSelected( item );
