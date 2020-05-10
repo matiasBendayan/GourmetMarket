@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,7 +35,26 @@ public class MyCarrito extends AppCompatActivity {
         listView = findViewById( R.id.ListViewmyCarrito );
         mYAdapter adapter = new mYAdapter( getApplicationContext(), carritos);
         listView.setAdapter( adapter );
+        String total = this.getTotal(carritos);
+        TextView txvot = findViewById( R.id.total );
+        txvot.setText( "El total es de $ " + total );
+        Button comprar = findViewById( R.id.btnComprar );
+        comprar.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText( MyCarrito.this, "Funcionaaa", Toast.LENGTH_LONG ).show();
+            }
+        } );
     }
+
+    private String getTotal(List<Carrito> carritos) {
+        int total = 0;
+        for(Carrito carr: carritos){
+            total+=carr.getPrecio();
+        }
+        return String.valueOf( total );
+    }
+
     class mYAdapter extends ArrayAdapter<Carrito> {
         List<Carrito> carritos =  new ArrayList<>();
         mYAdapter(Context c, List<Carrito> carritos2) {
@@ -49,7 +69,7 @@ public class MyCarrito extends AppCompatActivity {
             View fila = layoutInflater.inflate( R.layout.filamycarrito, parent, false );
             TextView title = fila.findViewById( R.id.textView2 );
             TextView precio = fila.findViewById( R.id.textView3 );
-            title.setText( this.carritos.get( position ).getDescripciones() );
+            title.setText( this.carritos.get( position ).getDescripciones() + "(x"+this.carritos.get( position ).getCantidad()+")" );
             precio.setText("$ " + String.valueOf( this.carritos.get( position ).getPrecio() ) );
             return fila;
         }
