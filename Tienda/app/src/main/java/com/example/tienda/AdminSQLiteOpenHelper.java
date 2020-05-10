@@ -11,7 +11,7 @@ public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase BaseDeDatos) {
-        BaseDeDatos.execSQL("create table carrito(id int primary key, nombre text, precio int,cantidad int)");
+        BaseDeDatos.execSQL("create table carrito(id INTEGER primary key AutoIncrement, nombre text, precio int,cantidad int)");
     }
 
     @Override

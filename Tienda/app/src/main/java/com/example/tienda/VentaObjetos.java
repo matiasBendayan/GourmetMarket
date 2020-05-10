@@ -30,7 +30,7 @@ public class VentaObjetos extends AppCompatActivity {
         setContentView( R.layout.activity_venta_objetos );
         int dato = getIntent().getIntExtra("posicion",0);
         listView = findViewById( R.id.listObjetos );
-        VentaObjetos.mYAdapter adapter = new VentaObjetos.mYAdapter( this,mTitle,mImgs,mprecios);
+        VentaObjetos.mYAdapter adapter = new VentaObjetos.mYAdapter( getApplicationContext(),mTitle,mImgs,mprecios);
         listView.setAdapter( adapter );
     }
     class mYAdapter extends ArrayAdapter<String> {

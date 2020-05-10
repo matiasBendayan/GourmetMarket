@@ -45,11 +45,8 @@ public class VentaUnitaria extends AppCompatActivity {
         ContentValues NuevoCarrito = new ContentValues();
         NuevoCarrito.put("nombre", titulo);
         NuevoCarrito.put("precio", precio);
-        NuevoCarrito.put("id", 1);
-        NuevoCarrito.put("precio", cantidad);
+        NuevoCarrito.put("cantidad", cantidad);
         BaseDeDatos.insert("carrito", null, NuevoCarrito);
         BaseDeDatos.close();Toast.makeText(this,"Se a agregado correctamente al carrito", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(getApplicationContext(),Catalogo.class);
-        startActivity( i );
         }
     }
