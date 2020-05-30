@@ -30,13 +30,17 @@ import java.util.List;
 
 public class Catalogo extends Fragment {
     ListView listView;
-    String mTitle[] = {"cosa1", "cosa2", "Cosa3", "Cosa4", "Cosa5", "Cosa6"};
-
     int mImgs[] = {R.drawable.comida, R.drawable.miel, R.drawable.aderesos, R.drawable.cookies, R.drawable.comida, R.drawable.comida};
 
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         leerArticulos();
+        String mTitle[] = new String[categoriasdistintas.size()];
+        int i = 0;
+        for (String cat : categoriasdistintas){
+            mTitle[i] = cat;
+            i++;
+        }
         listView = getView().findViewById( R.id.ListView );
         mYAdapter adapter = new mYAdapter( getActivity().getApplicationContext(), mTitle, mImgs );
         listView.setAdapter( adapter );
@@ -51,6 +55,7 @@ public class Catalogo extends Fragment {
     }
 
     private List<Ariculos> listadearticulos = new ArrayList<>();
+    private List<String> categoriasdistintas = new ArrayList<>();
 
     private void leerArticulos() {
         InputStream is = getResources().openRawResource( R.raw.data );
@@ -65,13 +70,24 @@ public class Catalogo extends Fragment {
                 ariculo.setDescripcion( tokens[1] );
                 ariculo.setPrecio( Double.valueOf( tokens[2] ) );
                 listadearticulos.add( ariculo );
-                Log.d( "ACTIVITI" ,ariculo.toString());
+                agregarAcategorias(tokens[0]);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    private void agregarAcategorias(String token) {
+        Boolean repetido = false;
+        for(String cat : categoriasdistintas){
+            if (cat.equals(token)) {
+                repetido = true;
+            }
+        }
+        if (!repetido){
+            categoriasdistintas.add( token );
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
