@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +17,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,16 +31,12 @@ import java.util.List;
 public class Catalogo extends Fragment {
     ListView listView;
     int mImgs[] = {R.drawable.comida, R.drawable.miel, R.drawable.aderesos, R.drawable.cookies, R.drawable.comida, R.drawable.comida};
-
+    String mTitle[];
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         leerArticulos();
-        String mTitle[] = new String[categoriasdistintas.size()];
-        int i = 0;
-        for (String cat : categoriasdistintas){
-            mTitle[i] = cat;
-            i++;
-        }
+        mTitle = new String[categoriasdistintas.size()];
+        llenarmtitle();
         listView = getView().findViewById( R.id.ListView );
         mYAdapter adapter = new mYAdapter( getActivity().getApplicationContext(), mTitle, mImgs );
         listView.setAdapter( adapter );
@@ -49,9 +45,19 @@ public class Catalogo extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent i = new Intent( getView().getContext().getApplicationContext(), VentaObjetos.class );
                 i.putExtra( "posicion", position );
+                i.putExtra( "categorias", (Serializable) categoriasdistintas );
+                i.putExtra( "articulos", (Serializable) listadearticulos );
                 startActivity( i );
             }
         } );
+    }
+
+    private void llenarmtitle() {
+        int i = 0;
+        for (String cat : categoriasdistintas) {
+            mTitle[i] = cat;
+            i++;
+        }
     }
 
     private List<Ariculos> listadearticulos = new ArrayList<>();
@@ -59,7 +65,7 @@ public class Catalogo extends Fragment {
 
     private void leerArticulos() {
         InputStream is = getResources().openRawResource( R.raw.data );
-        BufferedReader reader = new BufferedReader( new InputStreamReader( is, Charset.forName( "UTF-8" ) )
+        BufferedReader reader = new BufferedReader( new InputStreamReader( is, Charset.forName( "ISO-8859-1" ) )
         );
         String line;
         try {
@@ -70,7 +76,7 @@ public class Catalogo extends Fragment {
                 ariculo.setDescripcion( tokens[1] );
                 ariculo.setPrecio( Double.valueOf( tokens[2] ) );
                 listadearticulos.add( ariculo );
-                agregarAcategorias(tokens[0]);
+                agregarAcategorias( tokens[0] );
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,15 +85,16 @@ public class Catalogo extends Fragment {
 
     private void agregarAcategorias(String token) {
         Boolean repetido = false;
-        for(String cat : categoriasdistintas){
-            if (cat.equals(token)) {
+        for (String cat : categoriasdistintas) {
+            if (cat.equals( token )) {
                 repetido = true;
             }
         }
-        if (!repetido){
+        if (!repetido) {
             categoriasdistintas.add( token );
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

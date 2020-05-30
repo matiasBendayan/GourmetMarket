@@ -1,6 +1,8 @@
 package com.example.tienda;
 
-class Ariculos {
+import java.io.Serializable;
+
+class Ariculos implements Serializable {
 private String categoria;
 
     public String getCategoria() {
@@ -29,13 +31,4 @@ private String categoria;
 
     private String descripcion;
 private Double precio;
-
-    @Override
-    public String toString() {
-        return "Ariculos{" +
-                "categoria='" + categoria + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", precio=" + precio +
-                '}';
-    }
 }
