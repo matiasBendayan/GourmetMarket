@@ -33,9 +33,9 @@ public class MyCarrito extends AppCompatActivity {
         List<Carrito> carritos;
         carritos = this.GetAll();
         listView = findViewById( R.id.ListViewmyCarrito );
-        mYAdapter adapter = new mYAdapter( getApplicationContext(), carritos);
+        mYAdapter adapter = new mYAdapter( getApplicationContext(), carritos );
         listView.setAdapter( adapter );
-        String total = this.getTotal(carritos);
+        String total = this.getTotal( carritos );
         TextView txvot = findViewById( R.id.total );
         txvot.setText( "El total es de $ " + total );
         Button comprar = findViewById( R.id.btnComprar );
@@ -49,19 +49,22 @@ public class MyCarrito extends AppCompatActivity {
 
     private String getTotal(List<Carrito> carritos) {
         int total = 0;
-        for(Carrito carr: carritos){
-            total+=carr.getPrecio();
+        for (Carrito carr : carritos) {
+            total += carr.getPrecio();
         }
         return String.valueOf( total );
     }
 
     class mYAdapter extends ArrayAdapter<Carrito> {
-        List<Carrito> carritos =  new ArrayList<>();
+        List<Carrito> carritos = new ArrayList<>();
+
         mYAdapter(Context c, List<Carrito> carritos2) {
-            super( c, R.layout.filamycarrito,R.id.textView1,carritos2);
-            for (Carrito s : carritos2){
-                carritos.add( s );}
+            super( c, R.layout.filamycarrito, R.id.textView1, carritos2 );
+            for (Carrito s : carritos2) {
+                carritos.add( s );
+            }
         }
+
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -69,8 +72,8 @@ public class MyCarrito extends AppCompatActivity {
             View fila = layoutInflater.inflate( R.layout.filamycarrito, parent, false );
             TextView title = fila.findViewById( R.id.textView2 );
             TextView precio = fila.findViewById( R.id.textView3 );
-            title.setText( this.carritos.get( position ).getDescripciones() + "(x"+this.carritos.get( position ).getCantidad()+")" );
-            precio.setText("$ " + String.valueOf( this.carritos.get( position ).getPrecio() ) );
+            title.setText( this.carritos.get( position ).getDescripciones() + "(x" + this.carritos.get( position ).getCantidad() + ")" );
+            precio.setText( "$ " + String.valueOf( this.carritos.get( position ).getPrecio() ) );
             return fila;
         }
     }
@@ -79,19 +82,19 @@ public class MyCarrito extends AppCompatActivity {
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper( this, "administracion", null, 1 );
         SQLiteDatabase BaseDeDatabase = admin.getReadableDatabase();
         List<Carrito> carritos = new ArrayList<>();
-        Carrito carrito = new Carrito();
         Cursor fila = BaseDeDatabase.rawQuery( "select * from carrito ", null );
-        fila.moveToFirst();
-        do {
-            carrito.setId( fila.getInt( 0 ) );
-            carrito.setDescripciones( fila.getString( 1 ) );
-            carrito.setPrecio( fila.getInt( 2 ) );
-            carrito.setCantidad( fila.getInt( 3 ) );
-            carritos.add( carrito );
-            fila.moveToNext();
-        } while (fila.isLast());
-        fila.moveToFirst();
-        BaseDeDatabase.close();
+        int i = 0;
+        if (fila.moveToFirst()) {
+            do {
+                Carrito micarrito = new Carrito();
+                micarrito.setId( fila.getInt( 0 ) );
+                micarrito.setDescripciones( fila.getString( 1 ) );
+                micarrito.setPrecio( fila.getInt( 2 ) );
+                micarrito.setCantidad( fila.getInt( 3 ) );
+                carritos.add( micarrito );
+            } while (fila.moveToNext());
+            BaseDeDatabase.close();
+        }
         return carritos;
     }
 }
